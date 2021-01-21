@@ -1,4 +1,4 @@
-package first_task;
+package vector;
 
 public class Vector {
     private double x;
