@@ -2,33 +2,44 @@ package Dict;
 
 import java.util.ArrayList;
 
-public class FrequencyDictionary {
+class FrequencyDictionary {
 
     public void buildDictionary(String text) {
         ArrayList<Character> enAlphabet = new ArrayList<>();
+        ArrayList countList = new ArrayList();
         text = text.toLowerCase();
 
-        for (char character = 'a'; character <= 'z'; character++) {
+        for (Character character = 'a'; character <= 'z'; character++) {
             enAlphabet.add(character);
         }
         display(enAlphabet);
-
-        int[] countArray = new int[enAlphabet.size()];
+        addToList(enAlphabet, countList);
 
         for (int i = 0; i < text.length(); i++) {
-            char character = text.charAt(i);
-            if (character >= enAlphabet.get(0) && character <= enAlphabet.get(25)) {
-                countArray[character - 'a']++;
+            if (enAlphabet.contains(text.charAt(i))){
+                int oldVal = (int) countList.get(enAlphabet.indexOf(text.charAt(i)));
+                int newVal = oldVal + 1;
+                countList.set(enAlphabet.indexOf(text.charAt(i)), newVal);
             }
         }
 
-        for (int i = 0; i < enAlphabet.size(); i++) {
-            System.out.println(enAlphabet.get(i) + " = " + countArray[i]);
-        }
+        display(enAlphabet, countList);
 
     }
 
-    public static void display(ArrayList alphabet) {
+    private static void addToList(ArrayList alphabet, ArrayList countList){
+        for (int i = 0; i <= alphabet.size() - 1 ; i++) {
+            countList.add(0);
+        }
+    }
+
+    private static void display(ArrayList alphabet) {
         System.out.println(alphabet);
+    }
+
+    private static void display(ArrayList alphabet, ArrayList countList) {
+        for (int i = 0; i < alphabet.size(); i++) {
+            System.out.println(alphabet.get(i) + " = " + countList.get(i));
+        }
     }
 }
