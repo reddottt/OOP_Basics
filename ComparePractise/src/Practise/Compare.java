@@ -17,22 +17,52 @@ public class Compare {
         Arrays.sort(players);
         System.out.println(Arrays.toString(players) + "\n");
 
-        Arrays.sort(players, new ComparatorByPlayerFavoriteWeapon());
+        Arrays.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return o1.getFavoriteWeapon().compareTo(o2.getFavoriteWeapon());
+            }
+        });
         System.out.println("sort by favourite weapon: " + Arrays.toString(players) + "\n");
 
-        Arrays.sort(players, new ComparatorByPlayerNickname());
+        Arrays.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return o1.getNickname().compareTo(o2.getNickname());
+            }
+        });
         System.out.println("sort by nickname: " + Arrays.toString(players) + "\n");
 
-        Arrays.sort(players, new ComparatorByPlayerLevel());
+        Arrays.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return o1.getLevel() - o2.getLevel();
+            }
+        });
         System.out.println("sort by level: " + Arrays.toString(players) + "\n");
 
-        Arrays.sort(players, new ComparatorByPlayerAverageAimAccuracy());
+        Arrays.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return Double.compare(o1.getAverageAimAccuracy(), o2.getAverageAimAccuracy());
+            }
+        });
         System.out.println("sort by favourite average aim accuracy: " + Arrays.toString(players) + "\n");
 
-        Arrays.sort(players, new ComparatorByPlayerPlayedHours());
+        Arrays.sort(players, new Comparator<Player>(){
+            @Override
+            public int compare(Player o1, Player o2) {
+                return Double.compare(o1.getPlayedHours(), o2.getPlayedHours());
+            }
+        });
         System.out.println("sort by played hours: " + Arrays.toString(players) + "\n");
 
-        Arrays.sort(players, new ComparatorByPlayerPing());
+        Arrays.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return o1.getPing() - o2.getPing();
+            }
+        });
         System.out.println("sort by ping: " + Arrays.toString(players) + "\n");
 
 
@@ -43,8 +73,8 @@ class Player implements Comparable{
 
     private String nickname;
     private String favoriteWeapon;
-    private int playedHours;
-    private int averageAimAccuracy;
+    private double playedHours;
+    private double averageAimAccuracy;
     private int level;
     private int ping;
 
@@ -56,11 +86,11 @@ class Player implements Comparable{
         return favoriteWeapon;
     }
 
-    public int getPlayedHours() {
+    public double getPlayedHours() {
         return playedHours;
     }
 
-    public int getAverageAimAccuracy() {
+    public double getAverageAimAccuracy() {
         return averageAimAccuracy;
     }
 
@@ -103,11 +133,11 @@ class Player implements Comparable{
             if (result != 0){
                 return result;
             } else {
-                result = this.playedHours - ((Player)object).playedHours;
+                result = Double.compare(this.playedHours, ((Player)object).playedHours);
                 if (result != 0) {
                     return result;
                 } else {
-                    result = this.averageAimAccuracy - ((Player)object).averageAimAccuracy;
+                    result = Double.compare(this.averageAimAccuracy, ((Player)object).averageAimAccuracy);
                     if (result != 0) {
                         return result;
                     } else {
@@ -124,44 +154,44 @@ class Player implements Comparable{
     }
 }
 
-class ComparatorByPlayerNickname implements Comparator {
-    @Override
-    public int compare(Object object1, Object object2) {
-        return ((Player)object1).getNickname().compareTo(((Player)object2).getNickname());
-    }
-}
-
-class ComparatorByPlayerFavoriteWeapon implements Comparator {
-    @Override
-    public int compare(Object object1, Object object2) {
-        return ((Player)object1).getFavoriteWeapon().compareTo(((Player)object2).getFavoriteWeapon());
-    }
-}
-
-class ComparatorByPlayerLevel implements Comparator {
-    @Override
-    public int compare(Object object1, Object object2) {
-        return ((Player)object1).getLevel() - ((Player)object2).getLevel();
-    }
-}
-
-class ComparatorByPlayerPlayedHours implements Comparator {
-    @Override
-    public int compare(Object object1, Object object2) {
-        return ((Player)object1).getPlayedHours() - ((Player)object2).getPlayedHours();
-    }
-}
-
-class ComparatorByPlayerAverageAimAccuracy implements Comparator {
-    @Override
-    public int compare(Object object1, Object object2) {
-        return ((Player)object1).getAverageAimAccuracy() - ((Player)object2).getAverageAimAccuracy();
-    }
-}
-
-class ComparatorByPlayerPing implements Comparator {
-    @Override
-    public int compare(Object object1, Object object2) {
-        return ((Player)object1).getPing() - ((Player)object2).getPing();
-    }
-}
+//class ComparatorByPlayerNickname implements Comparator {
+//    @Override
+//    public int compare(Object object1, Object object2) {
+//        return ((Player)object1).getNickname().compareTo(((Player)object2).getNickname());
+//    }
+//}
+//
+//class ComparatorByPlayerFavoriteWeapon implements Comparator {
+//    @Override
+//    public int compare(Object object1, Object object2) {
+//        return ((Player)object1).getFavoriteWeapon().compareTo(((Player)object2).getFavoriteWeapon());
+//    }
+//}
+//
+//class ComparatorByPlayerLevel implements Comparator {
+//    @Override
+//    public int compare(Object object1, Object object2) {
+//        return ((Player)object1).getLevel() - ((Player)object2).getLevel();
+//    }
+//}
+//
+//class ComparatorByPlayerPlayedHours implements Comparator {
+//    @Override
+//    public int compare(Object object1, Object object2) {
+//        return Double.compare(((Player)object1).getPlayedHours(), ((Player)object2).getPlayedHours());
+//    }
+//}
+//
+//class ComparatorByPlayerAverageAimAccuracy implements Comparator {
+//    @Override
+//    public int compare(Object object1, Object object2) {
+//        return Double.compare(((Player)object1).getAverageAimAccuracy(), ((Player)object2).getAverageAimAccuracy());
+//    }
+//}
+//
+//class ComparatorByPlayerPing implements Comparator {
+//    @Override
+//    public int compare(Object object1, Object object2) {
+//        return ((Player)object1).getPing() - ((Player)object2).getPing();
+//    }
+//}
